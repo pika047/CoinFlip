@@ -7,9 +7,9 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringSetPreferencesKey
 import com.flipcoin.core.domain.repository.UserPreferencesRepository
 import com.flipcoin.core.model.UserPreferences
+import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import javax.inject.Inject
 
 internal class DataStoreUserPreferencesRepository @Inject constructor(
     private val dataStore: DataStore<Preferences>,
