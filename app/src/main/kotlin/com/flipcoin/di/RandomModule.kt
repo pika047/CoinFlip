@@ -11,5 +11,8 @@ import kotlin.random.Random
 @InstallIn(SingletonComponent::class)
 object RandomModule {
     @Provides
-    fun provideRandomSource(): RandomSource = RandomSource { Random.nextBoolean() }
+    fun provideRandom(): Random = Random.Default
+
+    @Provides
+    fun provideRandomSource(random: Random): RandomSource = RandomSource { random.nextBoolean() }
 }
