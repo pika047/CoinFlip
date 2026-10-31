@@ -1,0 +1,27 @@
+import com.android.build.api.dsl.ApplicationExtension
+import com.android.build.api.dsl.CommonExtension
+import com.android.build.api.dsl.LibraryExtension
+import com.flipcoin.buildlogic.libs
+import org.gradle.api.Plugin
+import org.gradle.api.Project
+import org.gradle.kotlin.dsl.dependencies
+
+/** Enables Jetpack Compose on an Android application or library module. */
+class AndroidComposeConventionPlugin : Plugin<Project> {
+    override fun apply(target: Project) {
+        with(target) {
+            pluginManager.apply("org.jetbrains.kotlin.plugin.compose")
+
+            val android = extensions.findByType(ApplicationExtension::class.java)
+                ?: extensions.getByType(LibraryExtension::class.java)
+            (android as CommonExtension<*, *, *, *, *, *>).buildFeatures.compose = true
+
+            dependencies {
+                val bom = libs.findLibrary("androidx-compose-bom").get()
+                add("implementation", platform(bom))
+                add("implementation", libs.findLibrary("androidx-compose-ui-tooling-preview").get())
+                add("debugImplementation", libs.findLibrary("androidx-compose-ui-tooling").get())
+            }
+        }
+    }
+}
