@@ -4,4 +4,5 @@ package com.flipcoin.core.model
 data class Topic(
     val id: String,
     val name: String,
+    val emoji: String,
 )
