@@ -3,13 +3,13 @@ package com.flipcoin.core.data.topic
 import com.flipcoin.core.domain.repository.TopicRepository
 import com.flipcoin.core.model.Fact
 import com.flipcoin.core.model.Topic
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
-import javax.inject.Inject
-import javax.inject.Singleton
 
 @Singleton
 internal class AssetTopicRepository @Inject constructor(
