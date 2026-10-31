@@ -28,6 +28,10 @@ internal class DataStoreUserPreferencesRepository @Inject constructor(
         }
     }
 
+    override suspend fun setSelectedTopics(selectedTopicIds: Set<String>) {
+        dataStore.edit { prefs -> prefs[SELECTED_TOPICS] = selectedTopicIds }
+    }
+
     private companion object {
         val SELECTED_TOPICS = stringSetPreferencesKey("selected_topic_ids")
         val ONBOARDING_COMPLETED = booleanPreferencesKey("onboarding_completed")

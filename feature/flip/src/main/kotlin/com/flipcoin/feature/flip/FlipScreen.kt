@@ -6,6 +6,7 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,6 +17,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -37,8 +39,17 @@ fun FlipRoute(modifier: Modifier = Modifier, viewModel: FlipViewModel = hiltView
         uiState = uiState,
         onFlip = viewModel::onFlip,
         onFlipFinished = viewModel::onFlipFinished,
+        onOpenTopics = viewModel::onOpenTopics,
         modifier = modifier,
     )
+    uiState.topicPicker?.let { picker ->
+        TopicPickerSheet(
+            state = picker,
+            onTopicClick = viewModel::onToggleTopic,
+            onSave = viewModel::onSaveTopics,
+            onDismiss = viewModel::onDismissTopics,
+        )
+    }
 }
 
 @Composable
@@ -46,6 +57,7 @@ internal fun FlipScreen(
     uiState: FlipUiState,
     onFlip: () -> Unit,
     onFlipFinished: () -> Unit,
+    onOpenTopics: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -53,10 +65,19 @@ internal fun FlipScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween,
     ) {
-        Text(
-            text = stringResource(R.string.flip_count, uiState.flipCount),
-            style = MaterialTheme.typography.labelLarge,
-        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text(
+                text = stringResource(R.string.flip_count, uiState.flipCount),
+                style = MaterialTheme.typography.labelLarge,
+            )
+            TextButton(onClick = onOpenTopics, enabled = !uiState.isFlipping) {
+                Text(stringResource(R.string.flip_topics_button))
+            }
+        }
 
         Coin(
             side = uiState.side,
@@ -124,6 +145,7 @@ private fun FlipScreenPreview() {
             ),
             onFlip = {},
             onFlipFinished = {},
+            onOpenTopics = {},
         )
     }
 }
