@@ -4,7 +4,7 @@ import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-/** Reads every `assets/topics/*.json` file, so a new topic only needs a new file. */
+/** Reads every JSON file in `assets/topics`, so a new topic only needs a new file. */
 internal class AndroidTopicAssetSource @Inject constructor(
     @ApplicationContext private val context: Context,
 ) : TopicAssetSource {
