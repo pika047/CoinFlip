@@ -8,6 +8,7 @@ import com.flipcoin.core.model.CoinSide
 import com.flipcoin.core.model.Fact
 import com.flipcoin.core.model.Topic
 import com.flipcoin.core.model.UserPreferences
+import kotlin.random.Random
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,7 +22,6 @@ import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
-import kotlin.random.Random
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class FlipViewModelTest {

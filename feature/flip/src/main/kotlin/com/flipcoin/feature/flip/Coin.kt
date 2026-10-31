@@ -34,9 +34,9 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.flipcoin.core.model.CoinSide
-import kotlinx.coroutines.launch
 import kotlin.math.PI
 import kotlin.math.sin
+import kotlinx.coroutines.launch
 
 private const val FLIP_DURATION_MS = 1_600
 private const val FULL_SPINS = 6

@@ -6,6 +6,8 @@ import com.flipcoin.core.domain.FactDeck
 import com.flipcoin.core.domain.FlipCoinUseCase
 import com.flipcoin.core.domain.GetSelectedFactsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
+import kotlin.random.Random
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,8 +15,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
-import kotlin.random.Random
 
 @HiltViewModel
 class FlipViewModel @Inject constructor(

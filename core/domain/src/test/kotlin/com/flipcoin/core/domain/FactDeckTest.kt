@@ -1,11 +1,11 @@
 package com.flipcoin.core.domain
 
 import com.flipcoin.core.model.Fact
+import kotlin.random.Random
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertNull
 import org.junit.Test
-import kotlin.random.Random
 
 class FactDeckTest {
     private val facts = (1..5).map { Fact(id = "f$it", topicId = "t", text = "Fact $it") }
