@@ -30,10 +30,7 @@ import com.flipcoin.core.designsystem.theme.FlipCoinTheme
 import com.flipcoin.core.model.Topic
 
 @Composable
-fun OnboardingRoute(
-    modifier: Modifier = Modifier,
-    viewModel: OnboardingViewModel = hiltViewModel(),
-) {
+fun OnboardingRoute(modifier: Modifier = Modifier, viewModel: OnboardingViewModel = hiltViewModel()) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     OnboardingScreen(
         uiState = uiState,
