@@ -31,10 +31,7 @@ import com.flipcoin.core.model.CoinSide
 import com.flipcoin.core.model.Fact
 
 @Composable
-fun FlipRoute(
-    modifier: Modifier = Modifier,
-    viewModel: FlipViewModel = hiltViewModel(),
-) {
+fun FlipRoute(modifier: Modifier = Modifier, viewModel: FlipViewModel = hiltViewModel()) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     FlipScreen(
         uiState = uiState,
