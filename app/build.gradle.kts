@@ -29,6 +29,7 @@ dependencies {
     implementation(projects.core.designsystem)
     implementation(projects.core.data)
     implementation(projects.feature.onboarding)
+    implementation(projects.feature.flip)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.activity.compose)

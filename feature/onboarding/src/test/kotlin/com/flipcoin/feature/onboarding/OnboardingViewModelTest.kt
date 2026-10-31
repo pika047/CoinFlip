@@ -85,4 +85,8 @@ private class FakeUserPreferencesRepository : UserPreferencesRepository {
     override suspend fun completeOnboarding(selectedTopicIds: Set<String>) {
         state.value = UserPreferences(selectedTopicIds, onboardingCompleted = true)
     }
+
+    override suspend fun setSelectedTopics(selectedTopicIds: Set<String>) {
+        state.value = state.value.copy(selectedTopicIds = selectedTopicIds)
+    }
 }
