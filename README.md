@@ -30,4 +30,4 @@ Requires JDK 17 and the Android SDK (Android Studio sets both up).
 ./gradlew ktlintCheck lint  # code style and Android lint
 ```
 
-CI runs the same commands on every pull request.
+CI runs the same commands on every pull request, then installs the app on an emulator and walks through it. See [docs/TESTING.md](docs/TESTING.md) for testing on a phone or a laptop emulator.
