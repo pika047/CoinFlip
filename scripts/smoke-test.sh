@@ -23,7 +23,11 @@ find_text() {
     adb exec-out cat /sdcard/ui.xml | python3 -c '
 import re, sys, xml.etree.ElementTree as ET
 needle = sys.argv[1]
-for node in ET.parse(sys.stdin).iter("node"):
+try:
+    root = ET.parse(sys.stdin)
+except ET.ParseError:
+    sys.exit(1)  # The screen dump was empty, e.g. while the app is still starting.
+for node in root.iter("node"):
     if needle in node.get("text", "") or needle in node.get("content-desc", ""):
         x1, y1, x2, y2 = map(int, re.findall(r"\d+", node.get("bounds")))
         print((x1 + x2) // 2, (y1 + y2) // 2)
