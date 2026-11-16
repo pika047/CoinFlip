@@ -37,6 +37,16 @@ jobs:
           name: flipcoin-debug-apk
           path: app/build/outputs/apk/debug/*.apk
 
+      # The minified (R8) release build, signed with the debug key, so the emulator test
+      # also covers what ships to Play.
+      - name: Build release APK
+        run: ./gradlew assembleRelease
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: flipcoin-release-apk
+          path: app/build/outputs/apk/release/*.apk
+
   device-test:
     # Installs the debug APK on an Android emulator and walks through the app.
     needs: build
@@ -49,6 +59,11 @@ jobs:
         with:
           name: flipcoin-debug-apk
           path: apk
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: flipcoin-release-apk
+          path: apk-release
 
       - name: Enable KVM
         run: |
@@ -64,7 +79,7 @@ jobs:
           arch: x86_64
           profile: pixel_6
           disable-animations: false
-          script: ./scripts/smoke-test.sh "$(ls apk/*.apk | head -n 1)" screenshots
+          script: ./scripts/smoke-test.sh "$(ls apk/*.apk | head -n 1)" screenshots && ./scripts/smoke-test.sh "$(ls apk-release/*.apk | head -n 1)" screenshots/release
 
       - uses: actions/upload-artifact@v4
         if: always()
