@@ -8,4 +8,7 @@ interface UserPreferencesRepository {
 
     /** Saves the chosen topics and marks onboarding as done. */
     suspend fun completeOnboarding(selectedTopicIds: Set<String>)
+
+    /** Replaces the chosen topics after onboarding. */
+    suspend fun setSelectedTopics(selectedTopicIds: Set<String>)
 }
