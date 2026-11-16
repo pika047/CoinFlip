@@ -1,0 +1,5 @@
+<resources>
+    <string name="onboarding_title">What do you want to learn about?</string>
+    <string name="onboarding_subtitle">Pick one or more topics. Every flip shows a fun fact from them.</string>
+    <string name="onboarding_continue">Start flipping</string>
+</resources>
