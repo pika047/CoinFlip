@@ -7,7 +7,6 @@
     <string name="flip_result_tails">It\'s tails!</string>
     <string name="flip_count">Flips: %1$d</string>
     <string name="flip_topics_button">Topics</string>
-    <string name="flip_topics_title">Choose your topics</string>
     <string name="flip_topics_save">Save</string>
     <string name="flip_no_facts">No facts found for your topics.</string>
 </resources>
