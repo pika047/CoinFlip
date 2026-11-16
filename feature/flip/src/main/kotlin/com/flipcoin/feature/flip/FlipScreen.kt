@@ -17,7 +17,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -40,16 +39,11 @@ fun FlipRoute(modifier: Modifier = Modifier, viewModel: FlipViewModel = hiltView
         onFlip = viewModel::onFlip,
         onFlipFinished = viewModel::onFlipFinished,
         onOpenTopics = viewModel::onOpenTopics,
+        onToggleTopic = viewModel::onToggleTopic,
+        onSaveTopics = viewModel::onSaveTopics,
+        onDismissTopics = viewModel::onDismissTopics,
         modifier = modifier,
     )
-    uiState.topicPicker?.let { picker ->
-        TopicPickerSheet(
-            state = picker,
-            onTopicClick = viewModel::onToggleTopic,
-            onSave = viewModel::onSaveTopics,
-            onDismiss = viewModel::onDismissTopics,
-        )
-    }
 }
 
 @Composable
@@ -58,6 +52,9 @@ internal fun FlipScreen(
     onFlip: () -> Unit,
     onFlipFinished: () -> Unit,
     onOpenTopics: () -> Unit,
+    onToggleTopic: (String) -> Unit,
+    onSaveTopics: () -> Unit,
+    onDismissTopics: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -74,9 +71,14 @@ internal fun FlipScreen(
                 text = stringResource(R.string.flip_count, uiState.flipCount),
                 style = MaterialTheme.typography.labelLarge,
             )
-            TextButton(onClick = onOpenTopics, enabled = !uiState.isFlipping) {
-                Text(stringResource(R.string.flip_topics_button))
-            }
+            TopicsDropdown(
+                state = uiState.topicPicker,
+                enabled = !uiState.isFlipping,
+                onOpen = onOpenTopics,
+                onTopicClick = onToggleTopic,
+                onSave = onSaveTopics,
+                onDismiss = onDismissTopics,
+            )
         }
 
         Coin(
@@ -146,6 +148,9 @@ private fun FlipScreenPreview() {
             onFlip = {},
             onFlipFinished = {},
             onOpenTopics = {},
+            onToggleTopic = {},
+            onSaveTopics = {},
+            onDismissTopics = {},
         )
     }
 }

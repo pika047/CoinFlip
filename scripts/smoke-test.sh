@@ -90,7 +90,7 @@ shot "06-second-result"
 
 step "Changing topics"
 tap "Topics"
-wait_for "Choose your topics"
+wait_for "Save"
 shot "07-topic-picker"
 tap "🚀  Space"
 tap "🐾  Animals"

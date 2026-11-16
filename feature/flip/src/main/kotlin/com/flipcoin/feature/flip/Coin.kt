@@ -3,11 +3,10 @@ package com.flipcoin.feature.flip
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.CubicBezierEasing
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -18,21 +17,15 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.flipcoin.core.model.CoinSide
 import kotlin.math.PI
 import kotlin.math.sin
@@ -41,10 +34,6 @@ import kotlinx.coroutines.launch
 private const val FLIP_DURATION_MS = 1_600
 private const val FULL_SPINS = 6
 private val TossEasing = CubicBezierEasing(0.2f, 0.7f, 0.3f, 1f)
-
-private val GoldLight = Color(0xFFFFE08A)
-private val Gold = Color(0xFFD4A017)
-private val GoldDark = Color(0xFF8C6A0B)
 
 /**
  * A coin that spins around its vertical axis and arcs upwards each time
@@ -98,9 +87,9 @@ fun Coin(
             },
         contentAlignment = Alignment.Center,
     ) {
-        // The back face is drawn pre-mirrored so its text reads correctly after a 180° turn.
+        // The back face is drawn pre-mirrored so its art and text read correctly after a 180° turn.
         CoinFace(
-            label = stringResource(if (showingBack) R.string.flip_tails else R.string.flip_heads),
+            showingBack = showingBack,
             modifier = Modifier.graphicsLayer { if (showingBack) rotationY = 180f },
         )
     }
@@ -109,35 +98,12 @@ fun Coin(
 private fun CoinSide.restingAngle(): Float = if (this == CoinSide.HEADS) 0f else 180f
 
 @Composable
-private fun CoinFace(label: String, modifier: Modifier = Modifier) {
-    Box(modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Canvas(Modifier.fillMaxSize()) {
-            val radius = size.minDimension / 2
-            drawCircle(
-                brush = Brush.radialGradient(
-                    colors = listOf(GoldLight, Gold, GoldDark),
-                    center = center + Offset(-radius * 0.3f, -radius * 0.3f),
-                    radius = radius * 1.4f,
-                ),
-                radius = radius,
-            )
-            drawCircle(color = GoldDark, radius = radius - 2.dp.toPx(), style = Stroke(width = 4.dp.toPx()))
-            drawCircle(
-                color = GoldDark.copy(alpha = 0.6f),
-                radius = radius * 0.78f,
-                style = Stroke(width = 2.dp.toPx()),
-            )
-        }
-        Text(
-            text = label,
-            style = TextStyle(
-                color = GoldDark,
-                fontSize = 34.sp,
-                fontWeight = FontWeight.Black,
-                letterSpacing = 2.sp,
-            ),
-        )
-    }
+private fun CoinFace(showingBack: Boolean, modifier: Modifier = Modifier) {
+    Image(
+        painter = painterResource(if (showingBack) R.drawable.coin_tails else R.drawable.coin_heads),
+        contentDescription = stringResource(if (showingBack) R.string.flip_tails else R.string.flip_heads),
+        modifier = modifier.fillMaxSize(),
+    )
 }
 
 @Preview
