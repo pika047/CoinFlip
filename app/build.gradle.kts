@@ -10,12 +10,29 @@ android {
     defaultConfig {
         // Permanent once published on Google Play.
         applicationId = "io.github.pika047.flipcoin"
-        versionCode = 1
-        versionName = "0.1.0"
+        // The release workflow passes a new code for every upload, since Play rejects repeats.
+        versionCode = System.getenv("FLIPCOIN_VERSION_CODE")?.toInt() ?: 1
+        versionName = "1.0.0"
+    }
+
+    // The upload key is supplied by the release workflow from GitHub secrets and is never
+    // committed. Without it, release builds are signed with the debug key so CI can still
+    // install and test the minified build; Play rejects debug-signed bundles.
+    val uploadKeystore = System.getenv("FLIPCOIN_KEYSTORE_PATH")
+    signingConfigs {
+        if (uploadKeystore != null) {
+            create("upload") {
+                storeFile = file(uploadKeystore)
+                storePassword = System.getenv("FLIPCOIN_KEYSTORE_PASSWORD")
+                keyAlias = System.getenv("FLIPCOIN_KEY_ALIAS")
+                keyPassword = System.getenv("FLIPCOIN_KEY_PASSWORD")
+            }
+        }
     }
 
     buildTypes {
         release {
+            signingConfig = signingConfigs.getByName(if (uploadKeystore != null) "upload" else "debug")
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
