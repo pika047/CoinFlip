@@ -26,6 +26,7 @@ FlipCoin does not knowingly collect any information from anyone, including child
 
 If this policy changes, the new version will be published at this same address with a new date.
 
-## Contact
+## Contact Us
 
-Questions about this policy: CONTACT_EMAIL
+If you have questions about this privacy policy, email us at [flowerbeedecor@gmail.com](mailto:flowerbeedecor@gmail.com).
+
